@@ -1,23 +1,23 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-body{
-    font-family: 'Castoro', serif;
+body {
+  font-family: "Castoro", serif;
 
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    background-image: linear-gradient(to bottom right, dimgray, black);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, dimgray, black);
 }
 
-h1{
-    padding: 3rem;
-    color: whitesmoke;
+h1 {
+  padding: 3rem;
+  color: whitesmoke;
 }
-ul{
-    list-style-type: none;
+ul {
+  list-style-type: none;
 }
 
 /*span{*/
