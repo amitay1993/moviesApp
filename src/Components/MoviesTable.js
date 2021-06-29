@@ -32,7 +32,7 @@ const MoviesTable = ({ movies }) => {
                   <span>{movie.imdbRating}</span>
                   <MemoizedRating
                     name="size-small"
-                    defaultValue={parseInt(movie.imdbRating)/2}
+                    defaultValue={parseInt(movie.imdbRating) / 2}
                     precision={0.5}
                     size="small"
                   />
@@ -43,6 +43,7 @@ const MoviesTable = ({ movies }) => {
                 <ExtraMovieDetails
                   id={movie.imdbID}
                   selectedId={currentSelectedMovie}
+                  categories={["Released", "Year", "Genre", "Director"]}
                 />
               </MovieDetailsContainer>
             );
