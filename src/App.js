@@ -6,6 +6,7 @@ import MoviesData from "./MoviesData";
 import MoviesTable from "./Components/MoviesTable";
 import ExtraMovieDetails from "./Components/ExtraMovieDetails";
 import { useParams } from "react-router";
+import MovieReviewPage from "./Components/MovieReviewPage";
 
 const Movies = () => {
   return <MoviesTable movies={MoviesData} />;
@@ -22,16 +23,7 @@ function App() {
     <Router>
       <Route exact path="/" component={Movies} />
       <Route path="/movieReview/:id">
-        <ExtraMovieDetails
-          categories={[
-            "Released",
-            "Year",
-            "Genre",
-            "Director",
-            "Runtime",
-            "Plot",
-          ]}
-        />
+        <MovieReviewPage />
       </Route>
     </Router>
   );

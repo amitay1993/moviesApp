@@ -5,59 +5,73 @@ import MoviesData from "../MoviesData";
 import findIndex from "lodash/findIndex";
 import isEmpty from "lodash/isEmpty";
 
-import { useParams, useRouteMatch } from "react-router";
+import { useParams } from "react-router";
+import { findMovie } from "../Utils/findMovie";
 
-const ExtraDetails = ({ match, movieId, selectedId, row, showLink }) => {
+const ExtraDetails = ({ match, movieId, selectedId, row, showDetailsLink }) => {
   const hasParams = isEmpty(match);
-  // console.log(hasParams);
   return (
     <ExtraDetailsContainer hidden={hasParams && movieId !== selectedId}>
       <RowContainer submitForm={!hasParams}>{row}</RowContainer>
-      {showLink && (
+      {showDetailsLink && (
         <StyledLink to={`/movieReview/${movieId}`}>More Details...</StyledLink>
       )}
     </ExtraDetailsContainer>
   );
 };
 
-const Row = ({ categories, movie }) => {
+const Row = ({ categories, movie, render }) => {
   const row = categories.map((category) => (
-    <>
-      <span> {`${category} :`} </span>
-      <span key={category}>{movie[category]}</span>
-    </>
+    <>{render(category, movie[category])}</>
   ));
   return row;
 };
 
-const ExtraMovieDetails = ({ id, selectedId, match, categories = [] }) => {
-  let movieId;
-
+const ExtraMovieDetails = ({
+  showDetailsLink = false,
+  id,
+  selectedId,
+  categories = [],
+}) => {
+  let movie;
   const params = useParams();
-  console.log(params);
-  // const router = useRouteMatch();
-  // console.log(router.params);
 
   if (isEmpty(params)) {
-    movieId = id;
+    movie = findMovie(id);
   } else {
-    movieId = params.id;
+    movie = findMovie(params.id);
   }
-
-  const movie =
-    MoviesData[
-      findIndex(MoviesData, function (o) {
-        return o.imdbID === movieId;
-      })
-    ];
+  console.log(movie);
 
   return (
     <ExtraDetails
       match={params}
-      movieId={movieId}
+      movieId={movie.imdbID}
       selectedId={selectedId}
-      row={<Row categories={categories} movie={movie} />}
-      showLink={isEmpty(params)}
+      row={
+        <Row
+          categories={categories}
+          movie={movie}
+          render={(category, value) => {
+            if (category === "Plot") {
+              return (
+                <>
+                  <span>{category}</span>
+                  <p>{value}</p>
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <span>{category}</span>
+                  <span>{value}</span>
+                </>
+              );
+            }
+          }}
+        />
+      }
+      showDetailsLink={showDetailsLink}
       movie={movie}
     />
   );
@@ -85,8 +99,8 @@ const RowContainer = styled.div`
     css`
       font-size: 1.2rem;
       display: grid;
-      width: 100%;
-      grid-template-columns: 8fr 2fr;
+      width: 50%;
+      grid-template-columns: 4fr 2fr;
       color: white;
     `}
 `;

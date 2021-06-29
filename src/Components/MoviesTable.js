@@ -27,20 +27,22 @@ const MoviesTable = ({ movies }) => {
           {movies.map((movie) => {
             return (
               <MovieDetailsContainer key={movie.imdbID}>
-                <TitleContainer onClick={() => selectedMovie(movie.imdbID)}>
-                  <li>{movie.Title}</li>
-                  <span>{movie.imdbRating}</span>
-                  <MemoizedRating
-                    name="size-small"
-                    defaultValue={parseInt(movie.imdbRating) / 2}
-                    precision={0.5}
-                    size="small"
-                  />
+                <ListItem onClick={() => selectedMovie(movie.imdbID)}>
+                  <span>{movie.Title}</span>
+                  <span>{movie.imdbRating}</span>{" "}
+                  <div>
+                    <RatingContainer
+                      name="size-small"
+                      defaultValue={parseInt(movie.imdbRating) / 2}
+                      size="small"
+                    />
+                  </div>
                   <ArrowDirection
                     direction={movie.imdbID === currentSelectedMovie}
                   />
-                </TitleContainer>
+                </ListItem>
                 <ExtraMovieDetails
+                  showDetailsLink
                   id={movie.imdbID}
                   selectedId={currentSelectedMovie}
                   categories={["Released", "Year", "Genre", "Director"]}
@@ -54,6 +56,8 @@ const MoviesTable = ({ movies }) => {
   );
 };
 
+const RatingContainer = styled(MemoizedRating)``;
+
 const Container = styled.div`
   display: flex;
   text-align: center;
@@ -66,13 +70,18 @@ const MoviesContainer = styled.div`
   height: 500px;
 `;
 
-const TitleContainer = styled.div`
+const ListItem = styled.li`
   display: flex;
+
   justify-content: space-between;
   color: white;
   padding: 1rem;
   border: whitesmoke 1px solid;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+
+  * {
+    flex: 1;
+  }
 
   &:hover {
     cursor: pointer;
