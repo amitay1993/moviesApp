@@ -29,7 +29,7 @@ function UserForm({movieId, onSubmit}) {
             setError("You muse include rating");
         }
         else {
-            onSubmit(movieId, comment)
+            onSubmit(movieId, comment,rating)
             setComment("");
         }
 
@@ -62,7 +62,6 @@ function UserForm({movieId, onSubmit}) {
 
                 </div>
             </RatingAndSubmitContainer>
-
         </div>
     );
 }
@@ -73,6 +72,7 @@ const RatingAndSubmitContainer = styled.div`
   width: 814px;
   justify-content: space-between;
   margin-bottom: 3.5rem;
+  
   
   & h3{
     color: red;

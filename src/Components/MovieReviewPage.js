@@ -18,14 +18,11 @@ function MovieReviewPage() {
   const title = movie.Title;
 
   const [reviews, setReviews] = useState({});
-  //console.log(reviews[movieId]);
-    let localStorageReviews;
 
 
-  const submitReview = (key, comment) => {
-    const review = {};
-    review[key] = comment;
-    const movie = reviews[movieId] ? [...reviews[movieId], comment] : [comment];
+  const submitReview = (key, comment,rating) => {
+    const review = {comment,rating};
+    const movie = reviews[movieId] ? [...reviews[movieId], review] : [review];
     setReviews({ ...reviews, [movieId]: movie });
   };
 
@@ -37,7 +34,6 @@ function MovieReviewPage() {
 
     useEffect(()=>{
         if(isEmpty(reviews)) return;
-        console.log("setItem")
         localStorage.setItem("reviews",JSON.stringify(reviews));
     },[reviews])
 
@@ -53,7 +49,7 @@ function MovieReviewPage() {
         <h1>Plot</h1>
         <p>{plot}</p>
       </PlotContainer>
-      <Reviews reviews={reviews[movieId]} />
+      <Reviews reviews={reviews[movieId]}/>
       <FormContainer>
         <UserForm movieId={movieId} onSubmit={submitReview} />
       </FormContainer>
@@ -65,8 +61,6 @@ const Container = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  
-  
 
   h1 {
     align-self: center;
@@ -90,6 +84,7 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: whitesmoke;
+  margin-left: 1.5rem;
 
   h3 {
     margin-bottom: 0.5rem;

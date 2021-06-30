@@ -73,7 +73,7 @@ const Container = styled.div`
 
 const MoviesContainer = styled.div`
   overflow: auto;
-
+  
 `;
 
 const ListItem = styled.li`

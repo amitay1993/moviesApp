@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
 
 function Reviews({ reviews }) {
+
+  console.log(reviews);
   return (
     <ReviewContainer>
       {reviews && <h3>Reviews</h3>}
@@ -14,10 +16,11 @@ function Reviews({ reviews }) {
             <TitleAndAvatarContainer key={index}>
               <ImageAvatars />
               <TextContainer>
-                <p>{review}</p>
+                <p>{review.comment}</p>
                 <InnerRatingContainer>
                   <p>Rating</p>
                   <ReactStars
+                      value={review.rating}
                       edit={false}
                       count={5}
                       size={20}
@@ -36,6 +39,7 @@ const ReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
+  margin-left: 1.5rem;
 
   h3 {
     margin-top: 5rem;
@@ -48,7 +52,6 @@ const InnerRatingContainer = styled.div`
   align-items: center;
   display: flex;
   & p {
-    
     margin-right: 1rem;
     font-weight: bold;
     text-decoration: underline;
