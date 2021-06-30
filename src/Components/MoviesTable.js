@@ -38,7 +38,7 @@ const MoviesTable = ({ movies }) => {
                           isHalf={true}
                           value={parseInt(movie.imdbRating)/2}
                           count={5}
-                          size={24}
+                          size={20}
                           activeColor="#ffd700"
                       />
                   </div>
@@ -61,18 +61,19 @@ const MoviesTable = ({ movies }) => {
   );
 };
 
-const RatingContainer = styled(MemoizedRating)``;
+
 
 const Container = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
   width: 720px;
+ 
 `;
 
 const MoviesContainer = styled.div`
   overflow: auto;
-  height: 500px;
+
 `;
 
 const ListItem = styled.li`

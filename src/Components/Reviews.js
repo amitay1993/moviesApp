@@ -9,9 +9,9 @@ function Reviews({ reviews }) {
     <ReviewContainer>
       {reviews && <h3>Reviews</h3>}
       {reviews &&
-        reviews.map((review) => {
+        reviews.map((review,index) => {
           return (
-            <TitleAndAvatarContainer>
+            <TitleAndAvatarContainer key={index}>
               <ImageAvatars />
               <TextContainer>
                 <p>{review}</p>
@@ -39,7 +39,6 @@ const ReviewContainer = styled.div`
 
   h3 {
     margin-top: 5rem;
-    margin-left: 1.5rem;
     margin-bottom: 0.5rem;
   }
 `;
@@ -61,8 +60,7 @@ const TitleAndAvatarContainer = styled.div`
   padding: 0.5rem;
   border: 1px solid white;
   width: 70%;
-  margin-left: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2.5rem;
 `;
 
 const TextContainer = styled.div`

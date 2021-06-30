@@ -7,6 +7,8 @@ import ImageAvatars from "../Utils/Avatars";
 import Rating from "@material-ui/lab/Rating";
 import UserForm from "./UserForm";
 import Reviews from "./Reviews";
+import isEmpty from "lodash/isEmpty";
+
 
 function MovieReviewPage() {
   const movieUrl = useParams();
@@ -16,23 +18,33 @@ function MovieReviewPage() {
   const title = movie.Title;
 
   const [reviews, setReviews] = useState({});
-  console.log(reviews[movieId]);
+  //console.log(reviews[movieId]);
+    let localStorageReviews;
+
 
   const submitReview = (key, comment) => {
     const review = {};
     review[key] = comment;
-
-    // const newReviews = { ...reviews };
-    // const comments = [...newReviews[movieId], comment];
-    // newReviews[movieId] = comments;
-    // setReviews(newReviews);
-
     const movie = reviews[movieId] ? [...reviews[movieId], comment] : [comment];
     setReviews({ ...reviews, [movieId]: movie });
   };
 
+
+    useEffect(()=>{
+      setReviews(JSON.parse(localStorage.getItem("reviews"))||{});
+    },[])
+
+
+    useEffect(()=>{
+        if(isEmpty(reviews)) return;
+        console.log("setItem")
+        localStorage.setItem("reviews",JSON.stringify(reviews));
+    },[reviews])
+
+
+
   return (
-    <ReviewPageContainer>
+    <Container>
       <h1>{title}</h1>
       <ExtraMovieDetails
         categories={["Released", "Year", "Genre", "Director", "Runtime"]}
@@ -45,15 +57,16 @@ function MovieReviewPage() {
       <FormContainer>
         <UserForm movieId={movieId} onSubmit={submitReview} />
       </FormContainer>
-    </ReviewPageContainer>
+    </Container>
   );
 }
 
-const ReviewPageContainer = styled.div`
+const Container = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, #2b5484, #463c3c);
+  
+  
 
   h1 {
     align-self: center;
@@ -74,7 +87,6 @@ const PlotContainer = styled.div`
 `;
 
 const FormContainer = styled.div`
-  margin: 1.5rem;
   display: flex;
   flex-direction: column;
   color: whitesmoke;

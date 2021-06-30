@@ -22,7 +22,9 @@ const ExtraDetails = ({ match, movieId, selectedId, row, showDetailsLink }) => {
 
 const Row = ({ categories, movie, render }) => {
   const row = categories.map((category) => (
-    <>{render(category, movie[category])}</>
+    <>
+        {render(category, movie[category])}
+    </>
   ));
   return row;
 };
@@ -41,7 +43,7 @@ const ExtraMovieDetails = ({
   } else {
     movie = findMovie(params.id);
   }
-  console.log(movie);
+
 
   return (
     <ExtraDetails
@@ -97,6 +99,7 @@ const RowContainer = styled.div`
   ${(props) =>
     props.submitForm &&
     css`
+     
       font-size: 1.2rem;
       display: grid;
       width: 50%;
