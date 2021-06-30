@@ -2,38 +2,32 @@ import React from "react";
 import ImageAvatars from "../Utils/Avatars";
 import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
+import ReactStars from "react-rating-stars-component";
 
-function Reviews(props) {
+function Reviews({ reviews }) {
   return (
     <ReviewContainer>
-      <h3>Reviews</h3>
-      <TitleAndAvatarContainer>
-        <ImageAvatars />
-        <TextContainer>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet
-            aperiam aspernatur consequatur corporis deleniti esse harum illo
-            inventore ipsam maxime mollitia nobis officia pariatur placeat,
-            porro quasi quod, recusandae saepe suscipit ullam veritatis
-            voluptas! Atque ex nemo repellat sequi! Ab accusantium architecto
-            aut autem commodi consectetur cupiditate debitis dolore doloribus ea
-            eius eos expedita facere fugiat harum ipsum, iure magnam minus modi
-            nam natus necessitatibus nobis obcaecati perspiciatis praesentium
-            quaerat quisquam quos ratione recusandae sed similique sint tenetur
-            totam ullam ut vero voluptate. Accusamus adipisci cum inventore iste
-            nihil omnis placeat quidem reprehenderit sequi sit! Delectus ex
-            illum in.
-          </p>
-          <InnerRatingContainer>
-            <p>Rating</p>
-            <Rating
-              name="size-small"
-              // defaultValue={parseInt(movie.imdbRating) / 2}
-              size="small"
-            />
-          </InnerRatingContainer>
-        </TextContainer>
-      </TitleAndAvatarContainer>
+      {reviews && <h3>Reviews</h3>}
+      {reviews &&
+        reviews.map((review) => {
+          return (
+            <TitleAndAvatarContainer>
+              <ImageAvatars />
+              <TextContainer>
+                <p>{review}</p>
+                <InnerRatingContainer>
+                  <p>Rating</p>
+                  <ReactStars
+                      edit={false}
+                      count={5}
+                      size={20}
+                      activeColor="#ffd700"
+                  />
+                </InnerRatingContainer>
+              </TextContainer>
+            </TitleAndAvatarContainer>
+          );
+        })}
     </ReviewContainer>
   );
 }
@@ -51,8 +45,12 @@ const ReviewContainer = styled.div`
 `;
 
 const InnerRatingContainer = styled.div`
+  
+  align-items: center;
   display: flex;
   & p {
+    
+    margin-right: 1rem;
     font-weight: bold;
     text-decoration: underline;
   }
@@ -64,6 +62,7 @@ const TitleAndAvatarContainer = styled.div`
   border: 1px solid white;
   width: 70%;
   margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const TextContainer = styled.div`

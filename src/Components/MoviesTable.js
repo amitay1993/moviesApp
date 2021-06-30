@@ -3,6 +3,8 @@ import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
 import ExtraMovieDetails from "./ExtraMovieDetails";
 import { ArrowDropUp, ArrowDropDown } from "@styled-icons/material";
+import ReactStars from "react-rating-stars-component";
+
 
 const MemoizedRating = React.memo(Rating);
 
@@ -31,11 +33,14 @@ const MoviesTable = ({ movies }) => {
                   <span>{movie.Title}</span>
                   <span>{movie.imdbRating}</span>{" "}
                   <div>
-                    <RatingContainer
-                      name="size-small"
-                      defaultValue={parseInt(movie.imdbRating) / 2}
-                      size="small"
-                    />
+                      <ReactStars
+                          edit={false}
+                          isHalf={true}
+                          value={parseInt(movie.imdbRating)/2}
+                          count={5}
+                          size={24}
+                          activeColor="#ffd700"
+                      />
                   </div>
                   <ArrowDirection
                     direction={movie.imdbID === currentSelectedMovie}

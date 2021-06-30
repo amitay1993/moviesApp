@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExtraMovieDetails from "./ExtraMovieDetails";
 import styled from "styled-components";
 import { findMovie } from "../Utils/findMovie";
@@ -10,9 +10,26 @@ import Reviews from "./Reviews";
 
 function MovieReviewPage() {
   const movieUrl = useParams();
+  const movieId = movieUrl.id;
   const movie = findMovie(movieUrl.id);
   const plot = movie.Plot;
   const title = movie.Title;
+
+  const [reviews, setReviews] = useState({});
+  console.log(reviews[movieId]);
+
+  const submitReview = (key, comment) => {
+    const review = {};
+    review[key] = comment;
+
+    // const newReviews = { ...reviews };
+    // const comments = [...newReviews[movieId], comment];
+    // newReviews[movieId] = comments;
+    // setReviews(newReviews);
+
+    const movie = reviews[movieId] ? [...reviews[movieId], comment] : [comment];
+    setReviews({ ...reviews, [movieId]: movie });
+  };
 
   return (
     <ReviewPageContainer>
@@ -24,9 +41,9 @@ function MovieReviewPage() {
         <h1>Plot</h1>
         <p>{plot}</p>
       </PlotContainer>
-      <Reviews />
+      <Reviews reviews={reviews[movieId]} />
       <FormContainer>
-        <UserForm />
+        <UserForm movieId={movieId} onSubmit={submitReview} />
       </FormContainer>
     </ReviewPageContainer>
   );
@@ -36,7 +53,7 @@ const ReviewPageContainer = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, dimgray, black);
+  background-image: linear-gradient(to bottom right, #2b5484, #463c3c);
 
   h1 {
     align-self: center;
