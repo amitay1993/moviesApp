@@ -23,9 +23,10 @@ function Reviews({ reviews }) {
                       value={review.rating}
                       edit={false}
                       count={5}
-                      size={20}
+                      size={15}
                       activeColor="#ffd700"
                   />
+                  <p>{review.rating}</p>
                 </InnerRatingContainer>
               </TextContainer>
             </TitleAndAvatarContainer>
@@ -54,7 +55,7 @@ const InnerRatingContainer = styled.div`
   & p {
     margin-right: 1rem;
     font-weight: bold;
-    text-decoration: underline;
+    margin-left: 1rem;
   }
 `;
 

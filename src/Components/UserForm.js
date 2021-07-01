@@ -15,11 +15,17 @@ function UserForm({movieId, onSubmit}) {
         setComment(review);
     };
 
-
     const ratingChanged = (newRating) => {
         setRating(newRating);
-
     };
+
+    const handleRating=(event)=>{
+        setRating(parseInt(event.target.dataset.index)+1);
+    }
+
+    const handleLeave=()=>{
+        setRating(0);
+    }
 
     const submit=()=>{
         if (comment.trim().length < 1) {
@@ -47,18 +53,20 @@ function UserForm({movieId, onSubmit}) {
                 cols={100}
             />
             <RatingAndSubmitContainer>
-                <SubmitButton onClick={submit}>Submit</SubmitButton>
+                <SubmitButton onClick={submit}><span>Submit </span></SubmitButton>
                 <h3>{error}</h3>
                 <div>
                     <span>Rating</span>
-                    <ReactStars
-                        value={rating}
-                        isHalf={true}
-                        count={5}
-                        onChange={ratingChanged}
-                        size={24}
-                        activeColor="#ffd700"
-                    />
+                    <span onMouseMove={handleRating} onMouseLeave={handleLeave}>
+                                   <ReactStars
+                                       value={rating}
+                                       count={5}
+                                       onChange={ratingChanged}
+                                       size={24}
+                                       activeColor="#ffd700"
+                                   />
+                    </span>
+                <span>{rating}</span>
 
                 </div>
             </RatingAndSubmitContainer>
@@ -80,7 +88,46 @@ const RatingAndSubmitContainer = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  border-radius: 50%;
+  border-radius: 4px;
+  background-image: linear-gradient(to bottom right, #9d9d9d, #7c8aa4);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 0.5rem;
+
+  span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+
+  }
+
+  span:after {
+    content: '✔️';
+    position: absolute;
+    opacity: 0;
+    right: -30px;
+    transition: 0.5s;
+  }
+
+  :hover span {
+    padding-right: 40px;
+
+  }
+
+  :hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
 `
+
+
 
 export default UserForm;

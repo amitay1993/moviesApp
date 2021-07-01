@@ -95,9 +95,7 @@ const FormContainer = styled.div`
     box-shadow: 3px 3px 3px rgba(255, 255, 255, 0.2);
   }
 
-  & button {
-    width: 50px;
-  }
+
 `;
 
 export default MovieReviewPage;

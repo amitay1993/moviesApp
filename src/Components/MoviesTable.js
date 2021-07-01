@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-import Rating from "@material-ui/lab/Rating";
 import styled from "styled-components";
 import ExtraMovieDetails from "./ExtraMovieDetails";
 import { ArrowDropUp, ArrowDropDown } from "@styled-icons/material";
 import ReactStars from "react-rating-stars-component";
 
 
-const MemoizedRating = React.memo(Rating);
-
-const ArrowDirection = ({ direction }) => {
-  return direction ? <ArrowDropDown size={30} /> : <ArrowDropUp size={30} />;
-};
 
 const MoviesTable = ({ movies }) => {
-  const [currentSelectedMovie, setCurrentSelectedMovie] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState("");
 
-  const selectedMovie = (movieId) => {
-    setCurrentSelectedMovie((prevState) =>
+  const selectMovie = (movieId) => {
+      setSelectedMovie((prevState) =>
       prevState !== movieId ? movieId : null
     );
   };
@@ -29,7 +23,7 @@ const MoviesTable = ({ movies }) => {
           {movies.map((movie) => {
             return (
               <MovieDetailsContainer key={movie.imdbID}>
-                <ListItem onClick={() => selectedMovie(movie.imdbID)}>
+                <ListItem onClick={() => selectMovie(movie.imdbID)}>
                   <span>{movie.Title}</span>
                   <span>{movie.imdbRating}</span>{" "}
                   <div>
@@ -43,13 +37,13 @@ const MoviesTable = ({ movies }) => {
                       />
                   </div>
                   <ArrowDirection
-                    direction={movie.imdbID === currentSelectedMovie}
+                    direction={movie.imdbID === selectedMovie}
                   />
                 </ListItem>
                 <ExtraMovieDetails
                   showDetailsLink
                   id={movie.imdbID}
-                  selectedId={currentSelectedMovie}
+                  selectedId={selectedMovie}
                   categories={["Released", "Year", "Genre", "Director"]}
                 />
               </MovieDetailsContainer>
@@ -60,6 +54,11 @@ const MoviesTable = ({ movies }) => {
     </Container>
   );
 };
+
+const ArrowDirection = ({ direction }) => {
+    return direction ? <ArrowDropDown size={30} />:<ArrowDropUp size={30} />;
+};
+
 
 
 
