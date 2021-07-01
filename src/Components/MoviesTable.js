@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ExtraMovieDetails from "./ExtraMovieDetails";
-import { ArrowDropUp, ArrowDropDown } from "@styled-icons/material";
+import { ArrowRight, ArrowDropDown } from "@styled-icons/material";
 import ReactStars from "react-rating-stars-component";
 
 
@@ -56,7 +56,7 @@ const MoviesTable = ({ movies }) => {
 };
 
 const ArrowDirection = ({ direction }) => {
-    return direction ? <ArrowDropDown size={30} />:<ArrowDropUp size={30} />;
+    return direction ? <ArrowDropDown size={30} />:<ArrowRight size={30} />;
 };
 
 

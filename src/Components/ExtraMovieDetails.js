@@ -20,14 +20,13 @@ const ExtraDetails = ({ match, movieId, selectedId, row, showDetailsLink }) => {
   );
 };
 
-const Row = ({ categories, movie, render }) => {
-  const row = categories.map((category) => (
+const Row = ({ categories, movie, render }) =>
+     categories.map((category) => (
     <>
         {render(category, movie[category])}
     </>
   ));
-  return row;
-};
+
 
 const ExtraMovieDetails = ({
   showDetailsLink = false,

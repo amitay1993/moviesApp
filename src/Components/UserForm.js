@@ -6,6 +6,7 @@ import ReactStars from "react-rating-stars-component";
 function UserForm({movieId, onSubmit}) {
     const [comment, setComment] = useState("");
     const [rating,setRating]=useState(0);
+    const [selectedRating,setSelectedRating]=useState(0);
     const [error, setError] = useState("");
 
 
@@ -16,7 +17,7 @@ function UserForm({movieId, onSubmit}) {
     };
 
     const ratingChanged = (newRating) => {
-        setRating(newRating);
+        setSelectedRating(newRating);
     };
 
     const handleRating=(event)=>{
@@ -31,11 +32,11 @@ function UserForm({movieId, onSubmit}) {
         if (comment.trim().length < 1) {
             setError("You must write a comment in order to sumbit")
         }
-        else if(rating===0) {
+        else if(selectedRating===0) {
             setError("You muse include rating");
         }
         else {
-            onSubmit(movieId, comment,rating)
+            onSubmit(movieId, comment,selectedRating)
             setComment("");
         }
 
@@ -59,15 +60,14 @@ function UserForm({movieId, onSubmit}) {
                     <span>Rating</span>
                     <span onMouseMove={handleRating} onMouseLeave={handleLeave}>
                                    <ReactStars
-                                       value={rating}
+                                       value={selectedRating}
                                        count={5}
                                        onChange={ratingChanged}
                                        size={24}
                                        activeColor="#ffd700"
                                    />
                     </span>
-                <span>{rating}</span>
-
+                <span>{rating||selectedRating}</span>
                 </div>
             </RatingAndSubmitContainer>
         </div>
@@ -109,6 +109,7 @@ const SubmitButton = styled.button`
   }
 
   span:after {
+  
     content: '✔️';
     position: absolute;
     opacity: 0;
