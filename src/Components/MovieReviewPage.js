@@ -3,11 +3,9 @@ import ExtraMovieDetails from "./ExtraMovieDetails";
 import styled from "styled-components";
 import { findMovie } from "../Utils/findMovie";
 import { useParams } from "react-router";
-import ImageAvatars from "../Utils/Avatars";
-import Rating from "@material-ui/lab/Rating";
 import UserForm from "./UserForm";
 import Reviews from "./Reviews";
-import isEmpty from "lodash/isEmpty";
+import {fetchMovieDetails} from "../service/api";
 
 
 function MovieReviewPage() {
@@ -28,14 +26,18 @@ function MovieReviewPage() {
 
 
     useEffect(()=>{
-      setReviews(JSON.parse(localStorage.getItem("reviews"))||{});
-    },[])
+        fetchMovieDetails(movieId)
+    },[movieId])
 
-
-    useEffect(()=>{
-        if(isEmpty(reviews)) return;
-        localStorage.setItem("reviews",JSON.stringify(reviews));
-    },[reviews])
+    // useEffect(()=>{
+    //   setReviews(JSON.parse(localStorage.getItem("reviews"))||{});
+    // },[])
+    //
+    //
+    // useEffect(()=>{
+    //     if(isEmpty(reviews)) return;
+    //     localStorage.setItem("reviews",JSON.stringify(reviews));
+    // },[reviews])
 
 
 

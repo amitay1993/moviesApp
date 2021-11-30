@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <Route exact path="/" render={()=><MoviesTable movies={MoviesData}/>}/>
+      <Route exact path="/" component={<MoviesTable movies={MoviesData}/>}/>
       <Route path="/movieReview/:id">
         <MovieReviewPage />
       </Route>

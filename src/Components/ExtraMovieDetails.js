@@ -1,15 +1,20 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import MoviesData from "../MoviesData";
-import findIndex from "lodash/findIndex";
+import { Link } from "react-router-dom";
+
 import isEmpty from "lodash/isEmpty";
 
 import { useParams } from "react-router";
 import { findMovie } from "../Utils/findMovie";
 
+
 const ExtraDetails = ({ match, movieId, selectedId, row, showDetailsLink }) => {
   const hasParams = isEmpty(match);
+
+  const fetchData=()=>{
+      return true;
+  }
+
   return (
     <ExtraDetailsContainer hidden={hasParams && movieId !== selectedId}>
       <RowContainer submitForm={!hasParams}>{row}</RowContainer>
